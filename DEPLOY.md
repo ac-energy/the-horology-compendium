@@ -5,30 +5,43 @@ terminal, in this project folder) if you want help finishing the deploy or
 making further edits. It gives that session everything it needs to pick up
 where this one left off.
 
-## What this site is
+## What this site is (as of the React rewrite)
 
-A single static file, `index.html`, containing five views (Home, The
-Collection, On Taste, The Secundus, The Collector) plus a Contact page, all
-switched client-side with a small hash router — no build step, no backend,
-no dependencies beyond two Google Fonts loaded over HTTPS. It runs on
-GitHub Pages exactly as-is.
+The site was rebuilt from a single hand-written HTML file into a small
+React application, written as plain ES modules with no JSX and no build
+step: `React.createElement` is used directly everywhere (aliased `h`),
+and React itself is loaded from `esm.sh` via an import map in
+`index.html`. This was a deliberate choice because this machine has no
+Node.js installed, so there is no bundler in the loop, nothing to `npm
+install`, and nothing that can go out of sync between "what's on disk"
+and "what's live." GitHub Pages serves the files exactly as they sit in
+the repo.
 
-Supporting files:
+```
+index.html              — the entry point: import map, fonts, #root, one script tag
+styles/global.css        — all CSS (ported from the original single-file site)
+src/lib.js               — re-exports React.createElement as h(), plus hooks
+src/main.js               — mounts <App/> into #root
+src/App.js                — hash router (reads/writes location.hash, no deps)
+src/data/watches.js       — the 8 watches, the chronology, and the country routes,
+                             as plain data (edit this file to add a 9th watch)
+src/components/           — Nav, WatchDial, WatchCard, TickingWatch, BarTimeline, Lightbox
+src/pages/                — Home, Collection, Taste, Secundus, Collector, Contact
+images/                   — the 8 collection photos
+images/secundus/          — photos and newspaper-ad scans used on the Secundus page
+                             (extracted from what used to be inline base64 data)
+```
 
-- `images/` — eight cropped watch photographs (`timex-weekender.jpg`,
-  `seiko-snk793.jpg`, `hamilton-khaki.jpg`, `orient-bambino.jpg`,
-  `seiko-snk803.jpg`, `casio-a168.jpg`, `seiko-alpinist.jpg`,
-  `west-end-secundus.jpg`), each cropped from one of the four paired source
-  photos in the project root.
-- The four paired source photos (`Blue Seiko and Timex.png`,
-  `cream dial seiko and casio.png`, `hamilton and bambino.png`,
-  `Secundus and Alpinist.png`) are no longer referenced by the page — the
-  site uses the cropped copies in `images/`. Safe to delete if you want a
-  smaller repo, or keep them as originals.
-- `watch-collection.html` is an untracked, byte-identical duplicate of the
-  old `index.html`. GitHub Pages serves `index.html` as the site's entry
-  point regardless, so this file is inert. Delete it unless you have a
-  reason to keep it.
+There is no `package.json` and nothing to install. Opening `index.html`
+through any static file server (or GitHub Pages) is the whole deployment.
+
+**Local testing note:** Python's built-in `python -m http.server` serves
+`.js` files with the wrong MIME type (`text/plain`), which browsers
+reject for `<script type="module">`. `devserver.py` in the project root
+is a five-line fix for that (adds a `.js → text/javascript` mapping) —
+use `python devserver.py 8000` instead of `http.server` when testing
+locally. GitHub Pages does not have this problem; it's a local-only
+quirk of Python's default MIME table.
 
 ## Repo status
 
@@ -38,50 +51,57 @@ Remote is already configured:
 origin  https://github.com/ac-energy/the-horology-compendium.git
 ```
 
-on branch `master`. So deployment is just: commit, push, and flip on Pages
-in the repo settings (one-time).
+on branch `master`.
 
 ## 1. Commit and push
 
 ```bash
-git add index.html images/ .claude/ "Blue Seiko and Timex.png" "cream dial seiko and casio.png" "hamilton and bambino.png" "Secundus and Alpinist.png"
-git commit -m "Redesign as The Horology Compendium: home page, real photos, contact page, timegraph"
+git add index.html styles/ src/ images/ devserver.py
+git commit -m "Rewrite as a plain-ES-modules React app (no build step)"
 git push origin master
 ```
 
-(Add `watch-collection.html` to the commit, or `git rm` it first, depending
-on whether you decided to keep or drop it above.)
+## 2. GitHub Pages
 
-## 2. Turn on GitHub Pages (one-time)
+Already just needs **Settings → Pages → Deploy from a branch → `master` /
+`/(root)`** if it isn't already on. Nothing about Pages configuration
+changes with this rewrite — it's still static files, still no Actions
+workflow needed. Live at:
 
-1. Open `https://github.com/ac-energy/the-horology-compendium/settings/pages`
-2. Under **Build and deployment → Source**, choose **Deploy from a branch**.
-3. Under **Branch**, choose `master` and folder `/(root)`, then **Save**.
-4. GitHub builds and publishes the site, usually within a minute or two, at:
+`https://ac-energy.github.io/the-horology-compendium/`
 
-   `https://ac-energy.github.io/the-horology-compendium/`
-
-5. Reload that URL once it goes live and click through all six nav items
-   (Home, The collection, On taste, The Secundus, The collector, Contact)
-   to confirm they render and the URL hash updates for each.
+Reload that URL and click through all six nav items (Home, The
+collection, On taste, The Secundus, The collector, Contact) to confirm
+they render and the URL hash updates for each.
 
 ## Notes for whoever picks this up in Claude Code
 
-- **Routing**: the nav buttons and the four cards on the Home page call a
-  `show(view, pushState)` function near the bottom of `index.html` that
-  toggles `body` classes (`is-home`, `is-collection`, etc.) and updates
-  `location.hash` — so links like
-  `https://ac-energy.github.io/the-horology-compendium/#story` work
-  directly and the browser back/forward buttons work too.
-- **Contact page**: the "Send a message" button assembles a `mailto:`
-  link at click time from two joined arrays, specifically so the address
-  never appears as plain text in the page source. If the address ever
-  needs to change, it's near the bottom of the `<script>` block, in the
-  `mailBtn` click handler.
-- **The Secundus tick dial** (on the On Taste page) deliberately ignores
-  `prefers-reduced-motion` — every other animation on the site respects
-  it, but a frozen second hand undercuts the entire point of that element,
-  so it always ticks.
+- **Adding a 9th watch**: add an entry to the `watches` array in
+  `src/data/watches.js` (id, year, image path, plate note, specs, story)
+  and drop the photo in `images/`. `Collection.js` derives its "watches /
+  countries / mechanical" stat tiles from that array and from `routes`,
+  so they update on their own.
+- **Routing**: `src/App.js` is the whole router — it reads `location.hash`
+  on load, listens for `hashchange`, and exposes a `navigate(view)`
+  function passed down as a prop. No react-router dependency; it's about
+  30 lines.
+- **Contact page**: the "Send a message" button in `src/pages/Contact.js`
+  assembles the `mailto:` address at click time from two joined arrays,
+  specifically so it never appears as plain text in the page's source.
+- **The Secundus tick dial** (`src/components/TickingWatch.js`, now shown
+  on the Contact page) deliberately ignores `prefers-reduced-motion` —
+  every other animation on the site respects it, but a frozen second
+  hand undercuts the one thing that component exists to show.
+- **Verbatim quote**: the West End Watch Co. reply letter on the Secundus
+  page (`src/pages/Secundus.js`) is reproduced as received and is exempt
+  from the site's general "no comma before *and*" style rule — it's
+  someone else's actual words, not house copy.
 - **Case sensitivity**: GitHub Pages serves files from Linux, which is
-  case-sensitive. All image filenames and references are lowercase with
-  hyphens, so this isn't a concern, but keep it that way if you add more.
+  case-sensitive. All paths in this project are already lowercase with
+  hyphens; keep new ones that way too.
+- **Images**: `images/secundus/` was generated once from a now-removed
+  base64-embedded version of the page via a small extraction script
+  (no longer in the repo, since it was a one-time migration step). If a
+  10th evidence photo needs adding to the Secundus page later, just drop
+  a normal image file in there and reference it from `Secundus.js` — no
+  special process required.
