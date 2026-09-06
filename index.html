@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Eight Watches, Nine Years</title>
+<title>The Horology Compendium</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Archivo:wght@300;400;500;600&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
@@ -205,10 +205,13 @@ a{color:inherit}
   --w-soft:#6E8CB8; --w-wash:#F0F5FC; --w-rule:rgba(21,43,78,.16);
 }
 body.is-story{background:var(--w-bg);color:var(--w-ink)}
-#view-story,#view-about{display:none}
-body.is-story #view-collection,body.is-about #view-collection{display:none}
+#view-home,#view-collection,#view-story,#view-about,#view-bio,#view-contact{display:none}
+body.is-home #view-home{display:block}
+body.is-collection #view-collection{display:block}
 body.is-story #view-story{display:block}
 body.is-about #view-about{display:block}
+body.is-bio #view-bio{display:block}
+body.is-contact #view-contact{display:block}
 
 .nav{
   position:sticky;top:0;z-index:40;
@@ -500,22 +503,141 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
   .hero-figs{gap:26px}
   .fig .n{font-size:1.9rem}
 }
+
+/* ---------- centered spec boxes ---------- */
+.specs div{text-align:center}
+
+/* ---------- real-photo plates ---------- */
+.watch-frame{
+  width:100%;max-width:230px;aspect-ratio:3/4;overflow:hidden;
+  border-radius:5px;background:var(--ink-3);
+  box-shadow:0 1px 2px rgba(28,24,17,.08);
+}
+.watch-frame img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* ---------- chronology timegraph ---------- */
+.chron-graph{
+  display:flex;justify-content:space-between;gap:6px;
+  margin:34px 0 30px;padding-top:8px;position:relative;
+}
+.chron-graph::before{
+  content:"";position:absolute;top:13px;left:0;right:0;height:1px;background:var(--rule);
+}
+.chron-node{
+  position:relative;flex:1;display:flex;flex-direction:column;align-items:center;
+  text-align:center;padding-top:30px;min-width:0;
+}
+.chron-node::before{
+  content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);
+  width:12px;height:12px;border-radius:50%;background:var(--g,var(--brass));
+  border:2px solid #fff;box-shadow:0 0 0 1px var(--rule);
+}
+.chron-year{font-family:"Fraunces",Georgia,serif;font-size:.92rem;color:var(--g,var(--brass));margin-bottom:6px}
+.chron-text{font-family:"Spectral",Georgia,serif;font-weight:300;font-size:.84rem;line-height:1.5;
+  color:rgba(28,24,17,.82);max-width:15ch;margin:0}
+@media (max-width:900px){
+  .chron-graph{flex-direction:column;gap:0}
+  .chron-graph::before{top:0;bottom:0;left:10px;right:auto;width:1px;height:auto}
+  .chron-node{flex-direction:row;align-items:flex-start;text-align:left;padding:18px 0 18px 32px;gap:16px}
+  .chron-node::before{top:24px;left:10px;transform:translate(-50%,-50%)}
+  .chron-text{max-width:none}
+}
+
+/* ---------- HOME ---------- */
+.home-hero{
+  padding:118px 0 76px;text-align:center;border-bottom:1px solid var(--rule);
+  background:radial-gradient(1000px 560px at 50% -10%, rgba(198,167,94,.20), transparent 72%), var(--ink);
+}
+.home-kicker{font-family:"Archivo",sans-serif;font-size:.8rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--dust);margin:0 0 24px}
+.home-hero h1{
+  font-family:"Fraunces",Georgia,serif;font-weight:400;
+  font-size:clamp(2.8rem,8vw,5.6rem);line-height:1.03;margin:0 0 .42em;
+  color:var(--enamel);letter-spacing:-.02em;
+}
+.home-sub{
+  font-family:"Spectral",Georgia,serif;font-weight:300;
+  font-size:clamp(1.05rem,2vw,1.3rem);line-height:1.6;
+  max-width:46ch;margin:0 auto;color:var(--dust);
+}
+.home-index{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:0;
+}
+.home-card{
+  background:#fff;border:0;text-align:left;padding:38px 30px;cursor:pointer;font:inherit;
+  display:flex;flex-direction:column;gap:10px;transition:background .18s;
+}
+.home-card:hover,.home-card:focus-visible{background:var(--ink-3)}
+.home-card-n{font-family:"Fraunces",Georgia,serif;color:var(--brass);font-size:.92rem}
+.home-card-t{font-family:"Fraunces",Georgia,serif;font-size:1.4rem;color:var(--enamel)}
+.home-card-d{font-family:"Spectral",Georgia,serif;font-weight:300;font-size:.92rem;
+  line-height:1.55;color:var(--dust);max-width:32ch}
+.home-foot{padding:64px 0 92px;text-align:center}
+@media (max-width:820px){
+  .home-hero{padding:80px 0 52px}
+  .home-card{padding:28px 24px}
+}
+
+/* ---------- CONTACT ---------- */
+.mail-btn{
+  font:inherit;font-size:.98rem;letter-spacing:.02em;
+  background:var(--enamel);color:#fff;border:0;border-radius:2px;
+  padding:15px 30px;cursor:pointer;margin:8px 0 6px;
+}
+.mail-btn:hover,.mail-btn:focus-visible{background:var(--brass)}
+.mail-note{font-family:"Archivo",sans-serif;font-size:.82rem;color:var(--dust);margin:0}
 </style>
 </head>
-<body>
+<body class="is-home">
 
 <nav class="nav" aria-label="Sections">
-  <button type="button" data-view="collection" aria-current="true">The collection</button>
+  <button type="button" data-view="home" aria-current="true">Home</button>
+  <button type="button" data-view="collection" aria-current="false">The collection</button>
   <button type="button" data-view="about" aria-current="false">On taste</button>
   <button type="button" data-view="story" aria-current="false">The Secundus</button>
+  <button type="button" data-view="bio" aria-current="false">The collector</button>
+  <button type="button" data-view="contact" aria-current="false">Contact</button>
 </nav>
+<div id="view-home">
+<header class="home-hero">
+  <div class="wrap">
+    <p class="home-kicker">Est. 2017 &middot; Kathmandu</p>
+    <h1>The Horology<br>Compendium</h1>
+    <p class="home-sub">A working record of eight watches, nine years, and the habit of looking closer at whatever keeps time.</p>
+  </div>
+</header>
+<div class="home-index wrap" aria-label="Compendium sections">
+  <button type="button" class="home-card" data-view="collection">
+    <span class="home-card-n">I.</span>
+    <span class="home-card-t">The Collection</span>
+    <span class="home-card-d">Eight watches, in the order they arrived.</span>
+  </button>
+  <button type="button" class="home-card" data-view="about">
+    <span class="home-card-n">II.</span>
+    <span class="home-card-t">On Taste</span>
+    <span class="home-card-d">What eight watches add up to, once you lay them out in order.</span>
+  </button>
+  <button type="button" class="home-card" data-view="story">
+    <span class="home-card-n">III.</span>
+    <span class="home-card-t">The Secundus</span>
+    <span class="home-card-d">A pocket watch with no papers, and the paper trail that gave part of it back.</span>
+  </button>
+  <button type="button" class="home-card" data-view="bio">
+    <span class="home-card-n">IV.</span>
+    <span class="home-card-t">The Collector</span>
+    <span class="home-card-d">Who kept these, and why.</span>
+  </button>
+</div>
+<footer class="home-foot"><p class="copyright">&copy; Anuj Chaulagain</p></footer>
+</div>
 <div id="view-collection">
 <header class="hero">
   <div class="wrap">
     <div class="hero-top">
       <div>
         <h1>Eight watches, nine years</h1>
-        <p class="hero-lede">Nine years, one watch at a time. Most were bought and carried home across borders; two were gifts. One was worn at a wedding. The last arrived with no history whatsoever, which is why it took over.</p>
+        <p class="hero-lede">Nine years, one watch at a time. A few crossed oceans before they crossed my wrist. One was worn on a day I don&rsquo;t discuss in specifications. The last came with no history at all, and took over anyway.</p>
       </div>
       <div class="hero-figs">
         <div class="fig"><span class="n">8</span><span class="l">watches</span></div>
@@ -548,32 +670,8 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
   <!-- 2017 TIMEX -->
   <article class="entry" id="y2017">
     <div class="plate">
-      <svg class="watch" viewBox="0 0 200 300" role="img" aria-label="Timex Weekender: cream dial, black numerals, striped nylon strap.">
-        <rect x="66" y="2" width="68" height="94" rx="7" fill="#4A4640"/>
-        <rect x="72" y="2" width="13" height="94" fill="#7C7870"/>
-        <rect x="98" y="2" width="13" height="94" fill="#615D55"/>
-        <rect x="120" y="2" width="9" height="94" fill="#7C7870"/>
-        <rect x="66" y="204" width="68" height="94" rx="7" fill="#4A4640"/>
-        <rect x="72" y="204" width="13" height="94" fill="#7C7870"/>
-        <rect x="98" y="204" width="13" height="94" fill="#615D55"/>
-        <rect x="120" y="204" width="9" height="94" fill="#7C7870"/>
-        <rect x="66" y="248" width="68" height="7" rx="2" fill="#A9A49A"/>
-        <rect x="152" y="140" width="9" height="20" rx="2.5" fill="#A9A49A"/>
-        <circle cx="100" cy="150" r="76" fill="#B9B4AA"/>
-        <circle cx="100" cy="150" r="70" fill="#8F8A80"/>
-        <circle cx="100" cy="150" r="64" fill="#FDFCFA"/>
-        <circle cx="100" cy="150" r="56" fill="none" stroke="#2B2926" stroke-width="1"/>
-        <text x="100" y="106" text-anchor="middle" font-family="Archivo,sans-serif" font-size="15" fill="#22201D">12</text>
-        <text x="145" y="156" text-anchor="middle" font-family="Archivo,sans-serif" font-size="15" fill="#22201D">3</text>
-        <text x="100" y="202" text-anchor="middle" font-family="Archivo,sans-serif" font-size="15" fill="#22201D">6</text>
-        <text x="56" y="156" text-anchor="middle" font-family="Archivo,sans-serif" font-size="15" fill="#22201D">9</text>
-        <text x="100" y="130" text-anchor="middle" font-family="Archivo,sans-serif" font-size="7" fill="#8A857C" letter-spacing="1">TIMEX</text>
-        <line x1="100" y1="150" x2="100" y2="112" stroke="#22201D" stroke-width="3.5" stroke-linecap="round"/>
-        <line x1="100" y1="150" x2="132" y2="172" stroke="#22201D" stroke-width="2.4" stroke-linecap="round"/>
-        <line x1="109.4" y1="160.4" x2="65.2" y2="111.4" stroke="#2E4A78" stroke-width="1.3" stroke-linecap="round"/>
-        <circle cx="100" cy="150" r="3" fill="#22201D"/>
-      </svg>
-      <p class="plate-note">Quartz. Indiglo. Slip-through nylon.</p>
+      <div class="watch-frame"><img class="watch" src="images/timex-weekender.jpg" alt="Timex Weekender: cream dial, black numerals, striped nylon strap." loading="lazy"></div>
+      <p class="plate-note">Nine years of mornings began here.</p>
     </div>
     <div class="spine"></div>
     <div class="body">
@@ -587,52 +685,13 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
         <div><dt>Strap</dt><dd>Striped nylon, slip-through</dd></div>
       </dl>
       <p class="story">Ordered online for very little. Neither fact has ever mattered. The Weekender descends from the plain, legible watches Timex built by the million for people who needed to know the time and nothing else: a matt dial, full Arabic numerals, hands readable at a glance in a moving vehicle. It has never once failed. Nine years on it still sits in the same box as the Alpinist and the Hamilton, and it has earned the place. Everything I later came to value in a watch was already here, in the first one I owned.</p>
-      <div class="arrival"><span class="how">Ordered online</span><span class="place">United States</span></div>
     </div>
   </article>
 
   <!-- 2019 SNK793 -->
   <article class="entry" id="y2019">
     <div class="plate">
-      <svg class="watch" viewBox="0 0 200 300" role="img" aria-label="Seiko 5 SNK793: blue dial, day and date at three, steel bracelet.">
-        <g fill="#A8AAAE">
-          <rect x="66" y="2" width="68" height="20" rx="5"/><rect x="66" y="25" width="68" height="20" rx="5"/><rect x="66" y="48" width="68" height="20" rx="5"/><rect x="66" y="71" width="68" height="22" rx="5"/>
-          <rect x="66" y="207" width="68" height="22" rx="5"/><rect x="66" y="232" width="68" height="20" rx="5"/><rect x="66" y="255" width="68" height="20" rx="5"/><rect x="66" y="278" width="68" height="20" rx="5"/>
-        </g>
-        <g fill="#C9CBD0">
-          <rect x="84" y="2" width="32" height="20" rx="5"/><rect x="84" y="25" width="32" height="20" rx="5"/><rect x="84" y="48" width="32" height="20" rx="5"/><rect x="84" y="71" width="32" height="22" rx="5"/>
-          <rect x="84" y="207" width="32" height="22" rx="5"/><rect x="84" y="232" width="32" height="20" rx="5"/><rect x="84" y="255" width="32" height="20" rx="5"/><rect x="84" y="278" width="32" height="20" rx="5"/>
-        </g>
-        <rect x="152" y="140" width="10" height="20" rx="2.5" fill="#B4B6BB"/>
-        <circle cx="100" cy="150" r="76" fill="#C9CBD0"/>
-        <circle cx="100" cy="150" r="68" fill="#9A9CA1"/>
-        <circle cx="100" cy="150" r="62" fill="#0B3D6B"/>
-        <circle cx="100" cy="150" r="62" fill="url(#sunb)"/>
-        <defs><radialGradient id="sunb" cx="38%" cy="30%"><stop offset="0" stop-color="#3390C6" stop-opacity=".95"/><stop offset="1" stop-color="#05294A" stop-opacity=".95"/></radialGradient></defs>
-        <g>
-          <line x1="100.0" y1="96.0" x2="100.0" y2="105.0" stroke="#E4E7EC" stroke-width="4.2" stroke-linecap="round"/>
-          <line x1="127.0" y1="103.2" x2="122.5" y2="111.0" stroke="#E4E7EC" stroke-width="3.0" stroke-linecap="round"/>
-          <line x1="146.8" y1="123.0" x2="139.0" y2="127.5" stroke="#E4E7EC" stroke-width="3.0" stroke-linecap="round"/>
-          <line x1="146.8" y1="177.0" x2="139.0" y2="172.5" stroke="#E4E7EC" stroke-width="3.0" stroke-linecap="round"/>
-          <line x1="127.0" y1="196.8" x2="122.5" y2="189.0" stroke="#E4E7EC" stroke-width="3.0" stroke-linecap="round"/>
-          <line x1="100.0" y1="204.0" x2="100.0" y2="195.0" stroke="#E4E7EC" stroke-width="4.2" stroke-linecap="round"/>
-          <line x1="73.0" y1="196.8" x2="77.5" y2="189.0" stroke="#E4E7EC" stroke-width="3.0" stroke-linecap="round"/>
-          <line x1="53.2" y1="177.0" x2="61.0" y2="172.5" stroke="#E4E7EC" stroke-width="3.0" stroke-linecap="round"/>
-          <line x1="46.0" y1="150.0" x2="55.0" y2="150.0" stroke="#E4E7EC" stroke-width="4.2" stroke-linecap="round"/>
-          <line x1="53.2" y1="123.0" x2="61.0" y2="127.5" stroke="#E4E7EC" stroke-width="3.0" stroke-linecap="round"/>
-          <line x1="73.0" y1="103.2" x2="77.5" y2="111.0" stroke="#E4E7EC" stroke-width="3.0" stroke-linecap="round"/>
-        </g>
-        <rect x="126" y="143" width="26" height="14" rx="1.5" fill="#EDEDEA" stroke="#7E8086" stroke-width=".8"/>
-        <line x1="139" y1="143" x2="139" y2="157" stroke="#7E8086" stroke-width=".8"/>
-        <text x="132" y="153" text-anchor="middle" font-family="Archivo,sans-serif" font-size="8" fill="#22201D">FR</text>
-        <text x="146" y="153" text-anchor="middle" font-family="Archivo,sans-serif" font-size="8" fill="#22201D">7</text>
-        <text x="100" y="122" text-anchor="middle" font-family="Archivo,sans-serif" font-size="8" fill="#D8DBE0" letter-spacing="1">SEIKO</text>
-        <text x="100" y="186" text-anchor="middle" font-family="Archivo,sans-serif" font-size="6.5" fill="#9FB3CC" letter-spacing="1">AUTOMATIC</text>
-        <line x1="100" y1="150" x2="100" y2="116" stroke="#EDEDEA" stroke-width="4" stroke-linecap="round"/>
-        <line x1="100" y1="150" x2="126" y2="178" stroke="#EDEDEA" stroke-width="2.6" stroke-linecap="round"/>
-        <line x1="110.4" y1="159.4" x2="61.4" y2="115.2" stroke="#E4E7EC" stroke-width="1.1" stroke-linecap="round"/>
-        <circle cx="100" cy="150" r="3" fill="#EDEDEA"/>
-      </svg>
+      <div class="watch-frame"><img class="watch" src="images/seiko-snk793.jpg" alt="Seiko 5 SNK793: blue dial, day and date at three, steel bracelet." loading="lazy"></div>
       <p class="plate-note">Calibre 7S26. Display caseback.</p>
     </div>
     <div class="spine"></div>
@@ -647,40 +706,14 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
         <div><dt>Case</dt><dd>37 mm steel</dd></div>
       </dl>
       <p class="story">A gift, and the one that turned an object into a mechanism. The 7S26 neither hand-winds nor hacks; it is a plain industrial automatic built to be dependable rather than admired. Seiko put a window in the caseback anyway, and that window is where a great many people’s interest in watchmaking begins. Mine did. You wind it by moving. Once you have watched the rotor turn, a quartz watch is never quite the same thing again.</p>
-      <div class="arrival"><span class="how">Given by a friend</span><span class="place">Australia</span></div>
     </div>
   </article>
 
   <!-- 2021 HAMILTON -->
   <article class="entry" id="y2021">
     <div class="plate">
-      <svg class="watch" viewBox="0 0 200 300" role="img" aria-label="Hamilton Khaki Field 38mm: black dial, white Arabic numerals, brown leather strap.">
-        <path d="M67 92 L133 92 L124 6 Q100 -2 76 6 Z" fill="#5C4230"/>
-        <path d="M67 208 L133 208 L127 292 Q100 301 73 292 Z" fill="#6B4C36"/>
-        <rect x="70" y="232" width="60" height="9" rx="2" fill="#B7B9BE"/>
-        <rect x="76" y="258" width="48" height="4" rx="1.5" fill="#4A3426"/>
-        <rect x="76" y="276" width="48" height="4" rx="1.5" fill="#4A3426"/>
-        <rect x="152" y="140" width="10" height="20" rx="2.5" fill="#9A9CA1"/>
-        <circle cx="100" cy="150" r="76" fill="#BFC1C6"/>
-        <circle cx="100" cy="150" r="69" fill="#8B8D92"/>
-        <circle cx="100" cy="150" r="63" fill="#141414"/>
-        <circle cx="100" cy="150" r="47" fill="none" stroke="#4A4A48" stroke-width=".7"/>
-        <g font-family="Archivo,sans-serif" font-size="12" fill="#E4E0D6" text-anchor="middle">
-          <text x="100" y="103">12</text><text x="147" y="155">3</text><text x="100" y="204">6</text><text x="53" y="155">9</text>
-          <text x="124" y="112">1</text><text x="141" y="130">2</text><text x="141" y="182">4</text><text x="124" y="199">5</text>
-          <text x="76" y="199">7</text><text x="59" y="182">8</text><text x="59" y="130">10</text><text x="76" y="112">11</text>
-        </g>
-        <g font-family="Archivo,sans-serif" font-size="6.4" fill="#C08A4E" text-anchor="middle">
-          <text x="120.0" y="117.8">05</text><text x="134.6" y="132.4">10</text><text x="140.0" y="152.4">15</text><text x="134.6" y="172.4">20</text><text x="120.0" y="187.0">25</text><text x="100.0" y="192.4">30</text><text x="80.0" y="187.0">35</text><text x="65.4" y="172.4">40</text><text x="60.0" y="152.4">45</text><text x="65.4" y="132.4">50</text><text x="80.0" y="117.8">55</text>
-        </g>
-        <text x="100" y="134" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="7.5" fill="#E4E0D6" letter-spacing=".5">HAMILTON</text>
-        <text x="100" y="176" text-anchor="middle" font-family="Archivo,sans-serif" font-size="5.5" fill="#8E8A80" letter-spacing="1">AUTOMATIC</text>
-        <line x1="100" y1="150" x2="100" y2="118" stroke="#E4E0D6" stroke-width="4.5" stroke-linecap="butt"/>
-        <line x1="100" y1="150" x2="128" y2="176" stroke="#E4E0D6" stroke-width="2.8" stroke-linecap="butt"/>
-        <line x1="109.9" y1="159.9" x2="64.6" y2="114.6" stroke="#B9895C" stroke-width="1.2" stroke-linecap="round"/>
-        <circle cx="100" cy="150" r="2.8" fill="#E4E0D6"/>
-      </svg>
-      <p class="plate-note">Worn on my wedding day.</p>
+      <div class="watch-frame"><img class="watch" src="images/hamilton-khaki.jpg" alt="Hamilton Khaki Field 38mm: black dial, white Arabic numerals, brown leather strap." loading="lazy"></div>
+      <p class="plate-note">The one I would grab first if the building were on fire.</p>
     </div>
     <div class="spine"></div>
     <div class="body">
@@ -694,48 +727,14 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
         <div><dt>Case</dt><dd>38 mm steel</dd></div>
         <div><dt>Dial</dt><dd>Black, 12- and 24-hour</dd></div>
       </dl>
-      <p class="story">My first serious Swiss mechanical, ordered by me and carried back from Canada by a friend. The H-10 runs eighty hours from a full wind, and the 38 mm case is the size a field watch was always meant to be, which is why it has aged better than most of what stood beside it. None of that is why it matters. I wore it when I got married, and no specification on this list will ever outrank that sentence.</p>
-      <div class="arrival"><span class="how">Bought, carried by a friend</span><span class="place">Canada</span></div>
+      <p class="story">My first serious Swiss mechanical, chosen with more care than anything before it. The H-10 runs eighty hours from a full wind, and the 38 mm case is the size a field watch was always meant to be, which is why it has aged better than most of what stood beside it. None of that is why it matters. It was on my wrist for the one morning I would least want to relive without it, and no specification on this list will ever outrank that sentence.</p>
     </div>
   </article>
 
   <!-- 2022 BAMBINO -->
   <article class="entry" id="y2022">
     <div class="plate">
-      <svg class="watch" viewBox="0 0 200 300" role="img" aria-label="Orient Bambino Version 2: cream dial, gold indices, domed crystal, brown leather.">
-        <path d="M69 92 L131 92 L122 6 Q100 -2 78 6 Z" fill="#7A5334"/>
-        <path d="M69 208 L131 208 L125 292 Q100 301 75 292 Z" fill="#8A6140"/>
-        <rect x="72" y="232" width="56" height="8" rx="2" fill="#C7C9CE"/>
-        <rect x="78" y="258" width="44" height="3.5" rx="1.5" fill="#61402A"/>
-        <rect x="78" y="276" width="44" height="3.5" rx="1.5" fill="#61402A"/>
-        <rect x="152" y="141" width="9" height="18" rx="2.5" fill="#C9CBD0"/>
-        <circle cx="100" cy="150" r="76" fill="#D3D5DA"/>
-        <circle cx="100" cy="150" r="70" fill="#A5A7AC"/>
-        <circle cx="100" cy="150" r="64" fill="#F2EBDA"/>
-        <circle cx="100" cy="150" r="64" fill="url(#dome)"/>
-        <defs><radialGradient id="dome" cx="34%" cy="26%" r="72%"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".55"/><stop offset="1" stop-color="#C9BE9F" stop-opacity=".22"/></radialGradient></defs>
-        <g fill="#8A6B2A" font-family="Fraunces,Georgia,serif" text-anchor="middle">
-          <text x="100.0" y="103.2" font-size="10">XII</text>
-          <text x="125.0" y="109.9" font-size="8.5">I</text>
-          <text x="143.3" y="128.2" font-size="8.5">II</text>
-          <text x="143.3" y="178.2" font-size="8.5">IV</text>
-          <text x="125.0" y="196.5" font-size="8.5">V</text>
-          <text x="100.0" y="203.2" font-size="10">VI</text>
-          <text x="75.0" y="196.5" font-size="8.5">VII</text>
-          <text x="56.7" y="178.2" font-size="8.5">VIII</text>
-          <text x="50.0" y="153.2" font-size="8.5">IX</text>
-          <text x="56.7" y="128.2" font-size="8.5">X</text>
-          <text x="75.0" y="109.9" font-size="8.5">XI</text>
-        </g>
-        <rect x="132" y="143" width="20" height="14" rx="1.5" fill="#FBF7EC" stroke="#B9B2A0" stroke-width=".7"/>
-        <text x="142" y="153.5" text-anchor="middle" font-family="Archivo,sans-serif" font-size="9" fill="#2A2823">14</text>
-        <text x="100" y="124" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="8" fill="#8A6B2A" letter-spacing=".6">ORIENT</text>
-        <text x="100" y="182" text-anchor="middle" font-family="Archivo,sans-serif" font-size="5.5" fill="#A08A62" letter-spacing="1">AUTOMATIC</text>
-        <line x1="100" y1="150" x2="100" y2="114" stroke="#8A6B2A" stroke-width="4" stroke-linecap="round"/>
-        <line x1="100" y1="150" x2="130" y2="170" stroke="#8A6B2A" stroke-width="2.4" stroke-linecap="round"/>
-        <line x1="109.4" y1="160.4" x2="66.5" y2="112.8" stroke="#B4913F" stroke-width="1.1" stroke-linecap="round"/>
-        <circle cx="100" cy="150" r="2.8" fill="#8A6B2A"/>
-      </svg>
+      <div class="watch-frame"><img class="watch" src="images/orient-bambino.jpg" alt="Orient Bambino Version 2: cream dial, gold indices, domed crystal, brown leather." loading="lazy"></div>
       <p class="plate-note">Domed crystal. Calibre F6724.</p>
     </div>
     <div class="spine"></div>
@@ -749,45 +748,14 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
         <div><dt>Crystal</dt><dd>Domed mineral</dd></div>
         <div><dt>Case</dt><dd>40.5 mm steel</dd></div>
       </dl>
-      <p class="story">Every collection reaches the point where a field watch will not do, and this is where mine did. Orient makes its own movements, which is uncommon at any price and remarkable at this one, and the Bambino’s domed crystal bends the dial away at its edge in a way no flat sapphire can imitate. It is the least practical watch I own and the first I chose for how it looked rather than what it could withstand.</p>
-      <div class="arrival"><span class="how">Bought, carried by a friend</span><span class="place">Canada</span></div>
+      <p class="story">Every collection reaches the point where a field watch will not do, and this is where mine did. Orient makes its own movements, which is uncommon and worth admiring on its own terms, and the Bambino’s domed crystal bends the dial away at its edge in a way no flat sapphire can imitate. It is the least practical watch I own and the first I chose for how it looked rather than what it could withstand.</p>
     </div>
   </article>
 
   <!-- 2023 SNK803 -->
   <article class="entry" id="y2023">
     <div class="plate">
-      <svg class="watch" viewBox="0 0 200 300" role="img" aria-label="Seiko 5 SNK803: beige dial with 24-hour inner track, olive nylon strap.">
-        <rect x="66" y="2" width="68" height="94" rx="6" fill="#6D6E4C"/>
-        <rect x="66" y="20" width="68" height="4" fill="#4E4F37"/>
-        <rect x="66" y="52" width="68" height="4" fill="#4E4F37"/>
-        <rect x="66" y="204" width="68" height="94" rx="6" fill="#6D6E4C"/>
-        <rect x="66" y="240" width="68" height="4" fill="#4E4F37"/>
-        <rect x="66" y="272" width="68" height="4" fill="#4E4F37"/>
-        <rect x="66" y="250" width="68" height="9" rx="2" fill="#A9A49A"/>
-        <rect x="152" y="140" width="10" height="20" rx="2.5" fill="#B4B6BB"/>
-        <circle cx="100" cy="150" r="75" fill="#C4C6CB"/>
-        <circle cx="100" cy="150" r="68" fill="#93959A"/>
-        <circle cx="100" cy="150" r="62" fill="#DFD2B4"/>
-        <circle cx="100" cy="150" r="45" fill="none" stroke="#A89870" stroke-width=".7"/>
-        <g font-family="Archivo,sans-serif" font-size="11" fill="#2E2B24" text-anchor="middle">
-          <text x="100" y="105">12</text><text x="145" y="155">3</text><text x="100" y="201">6</text><text x="55" y="155">9</text>
-          <text x="123" y="113">1</text><text x="139" y="131">2</text><text x="139" y="181">4</text><text x="123" y="199">5</text>
-          <text x="77" y="199">7</text><text x="61" y="181">8</text><text x="61" y="131">10</text><text x="77" y="113">11</text>
-        </g>
-        <g font-family="Archivo,sans-serif" font-size="6.5" fill="#8F7F58" text-anchor="middle">
-          <text x="100" y="116">24</text><text x="133" y="153">15</text><text x="100" y="191">18</text><text x="67" y="153">21</text>
-        </g>
-        <rect x="126" y="143" width="26" height="14" rx="1.5" fill="#F4EEE0" stroke="#A89870" stroke-width=".7"/>
-        <line x1="139" y1="143" x2="139" y2="157" stroke="#A89870" stroke-width=".7"/>
-        <text x="132" y="153" text-anchor="middle" font-family="Archivo,sans-serif" font-size="7.5" fill="#2E2B24">SU</text>
-        <text x="146" y="153" text-anchor="middle" font-family="Archivo,sans-serif" font-size="7.5" fill="#2E2B24">2</text>
-        <text x="100" y="132" text-anchor="middle" font-family="Archivo,sans-serif" font-size="7.5" fill="#2E2B24" letter-spacing="1">SEIKO</text>
-        <line x1="100" y1="150" x2="100" y2="120" stroke="#2E2B24" stroke-width="4" stroke-linecap="round"/>
-        <line x1="100" y1="150" x2="126" y2="174" stroke="#2E2B24" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="109.0" y1="160.7" x2="67.9" y2="111.7" stroke="#7A4B36" stroke-width="1.1" stroke-linecap="round"/>
-        <circle cx="100" cy="150" r="2.8" fill="#2E2B24"/>
-      </svg>
+      <div class="watch-frame"><img class="watch" src="images/seiko-snk803.jpg" alt="Seiko 5 SNK803: cream dial with day-date, khaki canvas strap." loading="lazy"></div>
       <p class="plate-note">The one I keep reaching for.</p>
     </div>
     <div class="spine"></div>
@@ -799,52 +767,16 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
       <dl class="specs">
         <div><dt>Movement</dt><dd>Seiko 7S26 automatic</dd></div>
         <div><dt>Case</dt><dd>37 mm steel</dd></div>
-        <div><dt>Strap</dt><dd>Olive nylon</dd></div>
+        <div><dt>Strap</dt><dd>Khaki canvas</dd></div>
       </dl>
-      <p class="story">Two years after the Hamilton, another Seiko 5, and welcome. This is the generation that earned a following far out of proportion to its price: a soft beige dial, an inner twenty-four-hour track, a movement designed to be left alone for years at a time. There is nothing to protect and nothing to prove, which is exactly why it keeps being picked up.</p>
-      <div class="arrival"><span class="how">Bought</span><span class="place">United States</span></div>
+      <p class="story">Two years after the Hamilton, another Seiko 5, and welcome. This is the generation that earned a devoted following: a soft beige dial, an inner twenty-four-hour track, a movement designed to be left alone for years at a time. There is nothing to protect and nothing to prove, which is exactly why it keeps being picked up.</p>
     </div>
   </article>
 
   <!-- 2024 CASIO -->
   <article class="entry" id="y2024">
     <div class="plate">
-      <svg class="watch" viewBox="0 0 200 300" role="img" aria-label="Casio A168: rectangular steel digital watch with LCD display and steel bracelet.">
-        <g fill="#B6B8BD">
-          <rect x="64" y="2" width="72" height="17" rx="4"/><rect x="64" y="22" width="72" height="17" rx="4"/><rect x="64" y="42" width="72" height="17" rx="4"/><rect x="64" y="62" width="72" height="17" rx="4"/><rect x="64" y="82" width="72" height="17" rx="4"/>
-          <rect x="64" y="201" width="72" height="17" rx="4"/><rect x="64" y="221" width="72" height="17" rx="4"/><rect x="64" y="241" width="72" height="17" rx="4"/><rect x="64" y="261" width="72" height="17" rx="4"/><rect x="64" y="281" width="72" height="17" rx="4"/>
-        </g>
-        <g fill="#D6D8DD">
-          <rect x="82" y="2" width="36" height="17" rx="4"/><rect x="82" y="22" width="36" height="17" rx="4"/><rect x="82" y="42" width="36" height="17" rx="4"/><rect x="82" y="62" width="36" height="17" rx="4"/><rect x="82" y="82" width="36" height="17" rx="4"/>
-          <rect x="82" y="201" width="36" height="17" rx="4"/><rect x="82" y="221" width="36" height="17" rx="4"/><rect x="82" y="241" width="36" height="17" rx="4"/><rect x="82" y="261" width="36" height="17" rx="4"/><rect x="82" y="281" width="36" height="17" rx="4"/>
-        </g>
-        <defs>
-          <linearGradient id="caseG" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#E9EBEF"/><stop offset=".45" stop-color="#BFC2C8"/><stop offset="1" stop-color="#9FA2A8"/>
-          </linearGradient>
-          <linearGradient id="lcdG" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#C3CDB8"/><stop offset="1" stop-color="#9AA88E"/>
-          </linearGradient>
-        </defs>
-        <rect x="22" y="112" width="14" height="19" rx="4" fill="#9CA0A6"/>
-        <rect x="22" y="169" width="14" height="19" rx="4" fill="#9CA0A6"/>
-        <rect x="164" y="140" width="14" height="19" rx="4" fill="#9CA0A6"/>
-        <rect x="28" y="84" width="144" height="132" rx="20" fill="url(#caseG)"/>
-        <rect x="28" y="84" width="144" height="132" rx="20" fill="none" stroke="#8E9299" stroke-width="1"/>
-        <rect x="36" y="92" width="128" height="116" rx="15" fill="#D8DBE0"/>
-        <rect x="36" y="92" width="128" height="116" rx="15" fill="none" stroke="#AFB3B9" stroke-width=".8"/>
-        <text x="100" y="106" text-anchor="middle" font-family="Archivo,sans-serif" font-size="5.4" fill="#6E727A" letter-spacing="1.1">ALARM CHRONOGRAPH</text>
-        <rect x="44" y="110" width="112" height="80" rx="5" fill="#7E8A76"/>
-        <rect x="46" y="112" width="108" height="76" rx="4" fill="url(#lcdG)"/>
-        <text x="53" y="126" font-family="Archivo,sans-serif" font-size="7.5" font-weight="500" fill="#3E4739" letter-spacing=".6">MON</text>
-        <text x="88" y="126" font-family="Archivo,sans-serif" font-size="7.5" font-weight="500" fill="#3E4739">7</text>
-        <text x="147" y="126" text-anchor="end" font-family="Archivo,sans-serif" font-size="7" fill="#5A6353">24H</text>
-        <line x1="53" y1="130" x2="147" y2="130" stroke="#6E7A66" stroke-width=".5"/>
-        <text x="100" y="164" text-anchor="middle" font-family="Archivo,sans-serif" font-size="33" font-weight="600" fill="#242A20" letter-spacing="1.5">9:41</text>
-        <text x="147" y="180" text-anchor="end" font-family="Archivo,sans-serif" font-size="11" font-weight="500" fill="#3E4739">08</text>
-        <text x="53" y="180" font-family="Archivo,sans-serif" font-size="6" fill="#5A6353">JUL</text>
-        <text x="100" y="200" text-anchor="middle" font-family="Archivo,sans-serif" font-size="6.6" fill="#5C6158" letter-spacing="2.2">CASIO</text>
-      </svg>
+      <div class="watch-frame"><img class="watch" src="images/casio-a168.jpg" alt="Casio A168: rectangular steel digital watch with LCD display and steel bracelet." loading="lazy"></div>
       <p class="plate-note">Quartz, digital and completely unbothered.</p>
     </div>
     <div class="spine"></div>
@@ -858,50 +790,14 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
         <div><dt>Case</dt><dd>36.3 &#215; 38.6 mm steel</dd></div>
         <div><dt>Lineage</dt><dd>1980s Casio design</dd></div>
       </dl>
-      <p class="story">A gift, and entirely unembarrassed to sit between Swiss and Japanese automatics. The A168 is one of the most widely recognised watch designs ever made, and it has outlived most of what was taken more seriously at the time. Some mornings it is simply the right watch. A rule of collecting that cannot accommodate that is a rule about status, not about watches.</p>
-      <div class="arrival"><span class="how">Given by a close friend</span><span class="place">United States</span></div>
+      <p class="story">Entirely unembarrassed to sit between Swiss and Japanese automatics, the A168 is one of the most widely recognised watch designs ever made, and it has outlived most of what was taken more seriously at the time. Some mornings it is simply the right watch. A rule of collecting that cannot accommodate that is a rule about status, not about watches.</p>
     </div>
   </article>
 
   <!-- 2025 ALPINIST -->
   <article class="entry" id="y2025">
     <div class="plate">
-      <svg class="watch" viewBox="0 0 200 300" role="img" aria-label="Seiko Prospex Alpinist: green sunburst dial, gold cathedral hands, internal compass bezel.">
-        <path d="M67 92 L133 92 L124 6 Q100 -2 76 6 Z" fill="#4C3220"/>
-        <path d="M67 208 L133 208 L126 292 Q100 301 74 292 Z" fill="#5A3D28"/>
-        <rect x="70" y="232" width="60" height="9" rx="2" fill="#C4B183"/>
-        <rect x="76" y="260" width="48" height="4" rx="1.5" fill="#3C2818"/>
-        <rect x="152" y="139" width="10" height="20" rx="2.5" fill="#C4B183"/>
-        <rect x="152" y="106" width="9" height="15" rx="2.5" fill="#C4B183"/>
-        <circle cx="100" cy="150" r="77" fill="#C9CBD0"/>
-        <circle cx="100" cy="150" r="70" fill="#95979C"/>
-        <circle cx="100" cy="150" r="64" fill="#1E3524"/>
-        <circle cx="100" cy="150" r="64" fill="url(#grn)"/>
-        <defs><radialGradient id="grn" cx="36%" cy="28%" r="76%"><stop offset="0" stop-color="#43704A" stop-opacity=".9"/><stop offset="1" stop-color="#10251A" stop-opacity=".95"/></radialGradient></defs>
-        <circle cx="100" cy="150" r="57" fill="#0C1F15" opacity=".4"/>
-        <circle cx="100" cy="150" r="57" fill="none" stroke="#8E7A45" stroke-width=".7"/>
-        <circle cx="100" cy="150" r="41" fill="none" stroke="#7B6A3E" stroke-width=".5"/>
-        <g><line x1="100.0" y1="96.0" x2="100.0" y2="100.5" stroke="#BFA76A" stroke-width="1.2"/><line x1="104.7" y1="96.2" x2="104.4" y2="99.2" stroke="#BFA76A" stroke-width="0.55"/><line x1="109.4" y1="96.8" x2="108.9" y2="99.8" stroke="#BFA76A" stroke-width="0.55"/><line x1="114.0" y1="97.8" x2="113.2" y2="100.7" stroke="#BFA76A" stroke-width="0.55"/><line x1="118.5" y1="99.3" x2="117.4" y2="102.1" stroke="#BFA76A" stroke-width="0.55"/><line x1="122.8" y1="101.1" x2="121.6" y2="103.8" stroke="#BFA76A" stroke-width="0.55"/><line x1="127.0" y1="103.2" x2="125.5" y2="105.8" stroke="#BFA76A" stroke-width="0.55"/><line x1="131.0" y1="105.8" x2="129.3" y2="108.2" stroke="#BFA76A" stroke-width="0.55"/><line x1="134.7" y1="108.6" x2="132.8" y2="110.9" stroke="#BFA76A" stroke-width="0.55"/><line x1="138.2" y1="111.8" x2="135.0" y2="115.0" stroke="#BFA76A" stroke-width="1.2"/><line x1="141.4" y1="115.3" x2="139.1" y2="117.2" stroke="#BFA76A" stroke-width="0.55"/><line x1="144.2" y1="119.0" x2="141.8" y2="120.7" stroke="#BFA76A" stroke-width="0.55"/><line x1="146.8" y1="123.0" x2="144.2" y2="124.5" stroke="#BFA76A" stroke-width="0.55"/><line x1="148.9" y1="127.2" x2="146.2" y2="128.4" stroke="#BFA76A" stroke-width="0.55"/><line x1="150.7" y1="131.5" x2="147.9" y2="132.6" stroke="#BFA76A" stroke-width="0.55"/><line x1="152.2" y1="136.0" x2="149.3" y2="136.8" stroke="#BFA76A" stroke-width="0.55"/><line x1="153.2" y1="140.6" x2="150.2" y2="141.1" stroke="#BFA76A" stroke-width="0.55"/><line x1="153.8" y1="145.3" x2="150.8" y2="145.6" stroke="#BFA76A" stroke-width="0.55"/><line x1="154.0" y1="150.0" x2="149.5" y2="150.0" stroke="#BFA76A" stroke-width="1.2"/><line x1="153.8" y1="154.7" x2="150.8" y2="154.4" stroke="#BFA76A" stroke-width="0.55"/><line x1="153.2" y1="159.4" x2="150.2" y2="158.9" stroke="#BFA76A" stroke-width="0.55"/><line x1="152.2" y1="164.0" x2="149.3" y2="163.2" stroke="#BFA76A" stroke-width="0.55"/><line x1="150.7" y1="168.5" x2="147.9" y2="167.4" stroke="#BFA76A" stroke-width="0.55"/><line x1="148.9" y1="172.8" x2="146.2" y2="171.6" stroke="#BFA76A" stroke-width="0.55"/><line x1="146.8" y1="177.0" x2="144.2" y2="175.5" stroke="#BFA76A" stroke-width="0.55"/><line x1="144.2" y1="181.0" x2="141.8" y2="179.3" stroke="#BFA76A" stroke-width="0.55"/><line x1="141.4" y1="184.7" x2="139.1" y2="182.8" stroke="#BFA76A" stroke-width="0.55"/><line x1="138.2" y1="188.2" x2="135.0" y2="185.0" stroke="#BFA76A" stroke-width="1.2"/><line x1="134.7" y1="191.4" x2="132.8" y2="189.1" stroke="#BFA76A" stroke-width="0.55"/><line x1="131.0" y1="194.2" x2="129.3" y2="191.8" stroke="#BFA76A" stroke-width="0.55"/><line x1="127.0" y1="196.8" x2="125.5" y2="194.2" stroke="#BFA76A" stroke-width="0.55"/><line x1="122.8" y1="198.9" x2="121.6" y2="196.2" stroke="#BFA76A" stroke-width="0.55"/><line x1="118.5" y1="200.7" x2="117.4" y2="197.9" stroke="#BFA76A" stroke-width="0.55"/><line x1="114.0" y1="202.2" x2="113.2" y2="199.3" stroke="#BFA76A" stroke-width="0.55"/><line x1="109.4" y1="203.2" x2="108.9" y2="200.2" stroke="#BFA76A" stroke-width="0.55"/><line x1="104.7" y1="203.8" x2="104.4" y2="200.8" stroke="#BFA76A" stroke-width="0.55"/><line x1="100.0" y1="204.0" x2="100.0" y2="199.5" stroke="#BFA76A" stroke-width="1.2"/><line x1="95.3" y1="203.8" x2="95.6" y2="200.8" stroke="#BFA76A" stroke-width="0.55"/><line x1="90.6" y1="203.2" x2="91.1" y2="200.2" stroke="#BFA76A" stroke-width="0.55"/><line x1="86.0" y1="202.2" x2="86.8" y2="199.3" stroke="#BFA76A" stroke-width="0.55"/><line x1="81.5" y1="200.7" x2="82.6" y2="197.9" stroke="#BFA76A" stroke-width="0.55"/><line x1="77.2" y1="198.9" x2="78.4" y2="196.2" stroke="#BFA76A" stroke-width="0.55"/><line x1="73.0" y1="196.8" x2="74.5" y2="194.2" stroke="#BFA76A" stroke-width="0.55"/><line x1="69.0" y1="194.2" x2="70.7" y2="191.8" stroke="#BFA76A" stroke-width="0.55"/><line x1="65.3" y1="191.4" x2="67.2" y2="189.1" stroke="#BFA76A" stroke-width="0.55"/><line x1="61.8" y1="188.2" x2="65.0" y2="185.0" stroke="#BFA76A" stroke-width="1.2"/><line x1="58.6" y1="184.7" x2="60.9" y2="182.8" stroke="#BFA76A" stroke-width="0.55"/><line x1="55.8" y1="181.0" x2="58.2" y2="179.3" stroke="#BFA76A" stroke-width="0.55"/><line x1="53.2" y1="177.0" x2="55.8" y2="175.5" stroke="#BFA76A" stroke-width="0.55"/><line x1="51.1" y1="172.8" x2="53.8" y2="171.6" stroke="#BFA76A" stroke-width="0.55"/><line x1="49.3" y1="168.5" x2="52.1" y2="167.4" stroke="#BFA76A" stroke-width="0.55"/><line x1="47.8" y1="164.0" x2="50.7" y2="163.2" stroke="#BFA76A" stroke-width="0.55"/><line x1="46.8" y1="159.4" x2="49.8" y2="158.9" stroke="#BFA76A" stroke-width="0.55"/><line x1="46.2" y1="154.7" x2="49.2" y2="154.4" stroke="#BFA76A" stroke-width="0.55"/><line x1="46.0" y1="150.0" x2="50.5" y2="150.0" stroke="#BFA76A" stroke-width="1.2"/><line x1="46.2" y1="145.3" x2="49.2" y2="145.6" stroke="#BFA76A" stroke-width="0.55"/><line x1="46.8" y1="140.6" x2="49.8" y2="141.1" stroke="#BFA76A" stroke-width="0.55"/><line x1="47.8" y1="136.0" x2="50.7" y2="136.8" stroke="#BFA76A" stroke-width="0.55"/><line x1="49.3" y1="131.5" x2="52.1" y2="132.6" stroke="#BFA76A" stroke-width="0.55"/><line x1="51.1" y1="127.2" x2="53.8" y2="128.4" stroke="#BFA76A" stroke-width="0.55"/><line x1="53.2" y1="123.0" x2="55.8" y2="124.5" stroke="#BFA76A" stroke-width="0.55"/><line x1="55.8" y1="119.0" x2="58.2" y2="120.7" stroke="#BFA76A" stroke-width="0.55"/><line x1="58.6" y1="115.3" x2="60.9" y2="117.2" stroke="#BFA76A" stroke-width="0.55"/><line x1="61.8" y1="111.8" x2="65.0" y2="115.0" stroke="#BFA76A" stroke-width="1.2"/><line x1="65.3" y1="108.6" x2="67.2" y2="110.9" stroke="#BFA76A" stroke-width="0.55"/><line x1="69.0" y1="105.8" x2="70.7" y2="108.2" stroke="#BFA76A" stroke-width="0.55"/><line x1="73.0" y1="103.2" x2="74.5" y2="105.8" stroke="#BFA76A" stroke-width="0.55"/><line x1="77.2" y1="101.1" x2="78.4" y2="103.8" stroke="#BFA76A" stroke-width="0.55"/><line x1="81.5" y1="99.3" x2="82.6" y2="102.1" stroke="#BFA76A" stroke-width="0.55"/><line x1="86.0" y1="97.8" x2="86.8" y2="100.7" stroke="#BFA76A" stroke-width="0.55"/><line x1="90.6" y1="96.8" x2="91.1" y2="99.8" stroke="#BFA76A" stroke-width="0.55"/><line x1="95.3" y1="96.2" x2="95.6" y2="99.2" stroke="#BFA76A" stroke-width="0.55"/></g>
-        <path d="M100 96.5 L96.8 102.5 L103.2 102.5 Z" fill="#E3CE8E"/>
-        <g font-family="Fraunces,Georgia,serif" font-size="8.5" fill="#E3CE8E" text-anchor="middle"><text x="100.0" y="106.3">N</text><text x="147.0" y="153.3">E</text><text x="100.0" y="200.3">S</text><text x="53.0" y="153.3">W</text></g>
-        <g font-family="Archivo,sans-serif" font-size="4.6" fill="#A08E5C" text-anchor="middle"><text x="132.5" y="119.4">45</text><text x="132.5" y="184.4">135</text><text x="67.5" y="184.4">225</text><text x="67.5" y="119.4">315</text></g>
-        </g>
-        <g fill="#D9C387">
-          <rect x="98.4" y="112" width="3.2" height="11" rx="1"/><rect x="98.4" y="177" width="3.2" height="11" rx="1"/><rect x="62" y="148.4" width="11" height="3.2" rx="1"/>
-          <rect x="120" y="126" width="9" height="3" rx="1" transform="rotate(45 124 127)"/>
-          <rect x="71" y="126" width="9" height="3" rx="1" transform="rotate(-45 75 127)"/>
-          <rect x="120" y="171" width="9" height="3" rx="1" transform="rotate(-45 124 172)"/>
-          <rect x="71" y="171" width="9" height="3" rx="1" transform="rotate(45 75 172)"/>
-        </g>
-        <rect x="118" y="143.5" width="19" height="13" rx="1.5" fill="#EFEADF" stroke="#8E7A45" stroke-width=".7"/>
-        <text x="127.5" y="153.5" text-anchor="middle" font-family="Archivo,sans-serif" font-size="8.5" fill="#22201D">6</text>
-        <text x="100" y="134" text-anchor="middle" font-family="Archivo,sans-serif" font-size="7" fill="#D9C387" letter-spacing="1">SEIKO</text>
-        <text x="100" y="176" text-anchor="middle" font-family="Archivo,sans-serif" font-size="5" fill="#9C8A5A" letter-spacing="1">PROSPEX</text>
-        <path d="M100 150 L96 128 L100 116 L104 128 Z" fill="#D9C387"/>
-        <path d="M100 150 L118 166 L129 178 L112 172 Z" fill="#D9C387"/>
-        <line x1="108.6" y1="161.0" x2="70.4" y2="112.2" stroke="#D9C387" stroke-width="1.1" stroke-linecap="round"/>
-        <circle cx="100" cy="150" r="2.8" fill="#D9C387"/>
-      </svg>
+      <div class="watch-frame"><img class="watch" src="images/seiko-alpinist.jpg" alt="Seiko Prospex Alpinist: green dial, gold cathedral hands, brown leather strap." loading="lazy"></div>
       <p class="plate-note">Cathedral hands. Internal compass bezel.</p>
     </div>
     <div class="spine"></div>
@@ -916,46 +812,13 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
         <div><dt>Crown</dt><dd>Second crown at 4 for bezel</dd></div>
       </dl>
       <p class="story">The Alpinist descends from a watch Seiko built in 1959 for Japanese mountaineers, and the modern Prospex versions kept what made it recognisable: cathedral hands, an internal compass ring turned by a second crown and a green nobody else was using. This is the first watch I read about before buying rather than after. The seven before it were not chosen that way.</p>
-      <div class="arrival"><span class="how">Bought</span><span class="place">United States</span></div>
     </div>
   </article>
 
   <!-- 2026 WEST END -->
   <article class="entry" id="y2026">
     <div class="plate">
-      <svg class="watch" viewBox="0 0 200 300" role="img" aria-label="West End Watch Co Secundus pocket watch: white enamel dial, subsidiary seconds, blued hands.">
-        <ellipse cx="100" cy="17" rx="11" ry="13" fill="none" stroke="#A8925F" stroke-width="5"/>
-        <rect x="94" y="27" width="12" height="13" rx="2" fill="#A8925F"/>
-        <rect x="94.5" y="62" width="11" height="24" rx="2" fill="#9E8A52"/>
-        <path d="M100 38 C90 38 84 45 84 53 C84 62 91 70 100 70 C109 70 116 62 116 53 C116 45 110 38 100 38 Z" fill="#C9B078"/>
-        <path d="M100 38 C93 38 88 44 88 52 C88 61 93 68 100 68 C107 68 112 61 112 52 C112 44 107 38 100 38 Z" fill="none" stroke="#8E7B47" stroke-width=".8"/>
-        <g stroke="#9E8A52" stroke-width="1.1" stroke-linecap="round">
-          <line x1="90" y1="47" x2="90" y2="59"/><line x1="95" y1="43" x2="95" y2="63"/>
-          <line x1="100" y1="41" x2="100" y2="65"/><line x1="105" y1="43" x2="105" y2="63"/>
-          <line x1="110" y1="47" x2="110" y2="59"/>
-        </g>
-        <circle cx="100" cy="160" r="92" fill="#B7A374"/>
-        <circle cx="100" cy="160" r="86" fill="#D2BC86"/>
-        <circle cx="100" cy="160" r="79" fill="#9C8A55"/>
-        <circle cx="100" cy="160" r="75" fill="#F6F2E7"/>
-        <circle cx="100" cy="160" r="68" fill="none" stroke="#3A362C" stroke-width=".8"/>
-        <g font-family="Fraunces,Georgia,serif" font-size="13" fill="#26241E" text-anchor="middle">
-          <text x="100" y="103">12</text><text x="158" y="166">3</text><text x="100" y="228">6</text><text x="42" y="166">9</text>
-          <text x="129" y="111">1</text><text x="151" y="133">2</text><text x="151" y="199">4</text><text x="129" y="221">5</text>
-          <text x="71" y="221">7</text><text x="49" y="199">8</text><text x="49" y="133">10</text><text x="71" y="111">11</text>
-        </g>
-        <circle cx="100" cy="196" r="21" fill="none" stroke="#6E6A5C" stroke-width=".7"/>
-        <g font-family="Archivo,sans-serif" font-size="5.5" fill="#5C594E" text-anchor="middle">
-          <text x="100" y="181">60</text><text x="118" y="198">15</text><text x="100" y="216">30</text><text x="82" y="198">45</text>
-        </g>
-        <line x1="100" y1="196" x2="112" y2="188" stroke="#3A362C" stroke-width="1"/>
-        <circle cx="100" cy="196" r="1.6" fill="#3A362C"/>
-        <text x="100" y="128" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="7.5" fill="#2A2822" letter-spacing=".3">WEST END</text>
-        <text x="100" y="139" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="6" fill="#5C594E" letter-spacing="1">SECUNDUS</text>
-        <path d="M100 160 L95 138 Q100 126 105 138 Z" fill="#2E4A78"/>
-        <path d="M100 160 L136 176 Q146 186 128 184 Z" fill="#2E4A78"/>
-        <circle cx="100" cy="160" r="3.2" fill="#2E4A78"/>
-      </svg>
+      <div class="watch-frame"><img class="watch" src="images/west-end-secundus.jpg" alt="West End Watch Co. Secundus pocket watch: white enamel dial, subsidiary seconds, blued hands." loading="lazy"></div>
       <p class="plate-note">Serviced in Kathmandu. Running again.</p>
     </div>
     <div class="spine"></div>
@@ -970,7 +833,6 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
         <div><dt>Provenance</dt><dd>None recorded</dd></div>
       </dl>
       <p class="story">West End built almost its entire business around India and the wider region, with agents in Bombay and Calcutta selling to soldiers, engineers and civil servants across the subcontinent. This one arrived with nothing: no papers, no owner anyone could name, no date. It barely ran. I had the movement serviced, wrote to Switzerland and went through eighty-year-old newsprint until part of the answer turned up.</p>
-      <div class="arrival"><span class="how">Bought</span><span class="place">Nepal</span></div>
       <p style="margin-top:20px"><a class="to-story" href="#" style="color:var(--brass);font-size:.92rem">Read the full research on this watch</a></p>
     </div>
   </article>
@@ -980,38 +842,38 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
 <section class="prov">
   <div class="wrap">
     <h2>How they got here</h2>
-    <p>Six were bought, two were given and half of them crossed a border in someone’s hand luggage rather than a courier’s van.</p>
+    <p>Eight watches, four countries, and only one thing they have in common: none of them stayed where I found them.</p>
     <div class="routes">
       <div class="route">
         <p class="cty">United States</p>
-        <p class="cnt">Four watches, one a gift</p>
+        <p class="cnt">Four watches, each arriving on its own terms</p>
         <ul>
-          <li>Timex Weekender<span>ordered</span></li>
-          <li>Seiko SNK803<span>bought</span></li>
-          <li>Casio A168<span>gift</span></li>
-          <li>Seiko Alpinist<span>bought</span></li>
+          <li>Timex Weekender</li>
+          <li>Seiko SNK803</li>
+          <li>Casio A168</li>
+          <li>Seiko Alpinist</li>
         </ul>
       </div>
       <div class="route">
         <p class="cty">Canada</p>
-        <p class="cnt">Two watches, both hand-carried</p>
+        <p class="cnt">Two watches, neither of them shipped</p>
         <ul>
-          <li>Hamilton Khaki Field<span>carried</span></li>
-          <li>Orient Bambino<span>carried</span></li>
+          <li>Hamilton Khaki Field</li>
+          <li>Orient Bambino</li>
         </ul>
       </div>
       <div class="route">
         <p class="cty">Australia</p>
-        <p class="cnt">One watch, a gift</p>
+        <p class="cnt">One watch, from further away than the rest</p>
         <ul>
-          <li>Seiko SNK793<span>gift</span></li>
+          <li>Seiko SNK793</li>
         </ul>
       </div>
       <div class="route">
         <p class="cty">Nepal</p>
-        <p class="cnt">One watch, bought here</p>
+        <p class="cnt">One watch, found without having to travel at all</p>
         <ul>
-          <li>West End Secundus<span>bought</span></li>
+          <li>West End Secundus</li>
         </ul>
       </div>
     </div>
@@ -1021,7 +883,7 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
 <footer class="close">
   <div class="wrap">
     <blockquote>Nine years, and the watch that took over was the one that came with no story at all.</blockquote>
-    <p class="sig">Eight watches kept in Kathmandu, 2017 to 2026.</p>
+    <p class="sig">Eight mechanisms, nine years, and one city that has kept time with all of them: Kathmandu, 2017 to 2026.</p>
     <p class="sig copyright">&copy; Anuj Chaulagain</p>
   </div>
 </footer>
@@ -1083,7 +945,7 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
 
     <p>The SNK793 is the classic affordable Seiko 5, the formula that has introduced more people to mechanical watches than any advertising campaign ever managed. The SNK803 is the same movement wearing the soft military dress that made that generation beloved. The Alpinist is a deliberate step upward in finishing, identity and intent.</p>
 
-    <p>Discovering automatic watches. Learning to enjoy inexpensive mechanical ones. Then choosing, knowingly, the one I actually wanted. That is the collection in three watches.</p>
+    <p>Discovering automatic watches. Learning to love mechanical ones that asked little in return. Then choosing, knowingly, the one I actually wanted. That is the collection in three watches.</p>
 
     <h2>The heirloom I made by accident</h2>
 
@@ -1093,13 +955,13 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
 
     <p>The industry sells the idea of an heirloom at considerable expense. You make one by wearing a watch on the right morning.</p>
 
-    <h2>On price and on pleasure</h2>
+    <h2>On hierarchy and on pleasure</h2>
 
-    <p>The Casio A168 is, horologically, the opposite of a finished Swiss mechanical watch. Mass-produced, quartz, digital, made in enormous numbers to a very low price. It is also an icon that has outlasted a good deal of what was taken more seriously when it appeared. Some mornings it is simply the right watch to put on.</p>
+    <p>The Casio A168 sits, horologically, at the opposite end of the spectrum from a finished Swiss mechanical watch: mass-produced, quartz, digital, built to a design that has never needed updating. It is also an icon that has outlasted a good deal of what was taken more seriously when it appeared. Some mornings it is simply the right watch to put on.</p>
 
     <p>The Seiko 7S26 is not haute horlogerie either. It was designed to be a robust industrial automatic that would run for years without attention, and it does exactly that. Judged against a hand-finished movement it is nothing. Judged against what it was built to do, it is close to perfect.</p>
 
-    <p>Both of those are horology. So are railway watches, military watches, the anchor escapement, the pocket watch and the bevelled anglage that takes a craftsman a day to cut by hand. Restricting one&rsquo;s appreciation to the expensive end of that range is not connoisseurship. It is just shopping.</p>
+    <p>Both of those are horology. So are railway watches, military watches, the anchor escapement, the pocket watch and the bevelled anglage that takes a craftsman a day to cut by hand. Restricting one&rsquo;s appreciation to only the most celebrated end of that range is not connoisseurship. It is just fashion.</p>
 
     <p>I have spent a great deal of time studying Patek, Vacheron, Audemars Piguet and Lange. A Lange movement can stop you where you stand. A Vacheron carries centuries of accumulated method in its finishing. I do not need to own one to understand why. Buying something because a hierarchy told me it was better would make this collection less mine, not more.</p>
 
@@ -1163,16 +1025,16 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
 
     <h2>The chronology, in eight lines</h2>
 
-    <ol class="ab-chron">
-      <li><span>2017</span> I bought a watch.</li>
-      <li><span>2019</span> I discovered that a watch could run on its own.</li>
-      <li><span>2021</span> I bought a serious mechanical watch, and wore it when I got married.</li>
-      <li><span>2022</span> I discovered dress watches.</li>
-      <li><span>2023</span> I went back to something simple, on purpose.</li>
-      <li><span>2024</span> I accepted that a great watch need not be mechanical at all.</li>
-      <li><span>2025</span> I bought the one I had been reading about for a year.</li>
-      <li><span>2026</span> I bought a watch nobody could explain, and spent months trying to.</li>
-    </ol>
+    <div class="chron-graph" role="list" aria-label="Nine-year chronology, 2017 to 2026">
+      <div class="chron-node" role="listitem"><span class="chron-year">2017</span><p class="chron-text">I bought a watch.</p></div>
+      <div class="chron-node" role="listitem"><span class="chron-year">2019</span><p class="chron-text">I discovered that a watch could run on its own.</p></div>
+      <div class="chron-node" role="listitem"><span class="chron-year">2021</span><p class="chron-text">I bought a serious mechanical watch, and wore it on a day I still think about.</p></div>
+      <div class="chron-node" role="listitem"><span class="chron-year">2022</span><p class="chron-text">I discovered dress watches.</p></div>
+      <div class="chron-node" role="listitem"><span class="chron-year">2023</span><p class="chron-text">I went back to something simple, on purpose.</p></div>
+      <div class="chron-node" role="listitem"><span class="chron-year">2024</span><p class="chron-text">I accepted that a great watch need not be mechanical at all.</p></div>
+      <div class="chron-node" role="listitem"><span class="chron-year">2025</span><p class="chron-text">I bought the one I had been reading about for a year.</p></div>
+      <div class="chron-node" role="listitem"><span class="chron-year">2026</span><p class="chron-text">I bought a watch nobody could explain, and spent months trying to.</p></div>
+    </div>
 
     <p>That last line is where an inventory turns into something worth writing down.</p>
 
@@ -1180,7 +1042,7 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
 
     <p class="ab-verdict">A modest, deliberate collection of practical watches, gathered through friendships, milestones and curiosity, which turned somewhere along the way from wearing watches into caring about watchmaking.</p>
 
-    <p class="final">I am in no hurry to make it nine. Eight watches in, there is something here that a great many more expensive collections never manage: not one of them is filler. Every single one means something, and I can tell you exactly what.</p>
+    <p class="final">I am in no hurry to make it nine. Eight watches in, there is something here that a great many larger collections never manage: not one of them is filler. Every single one means something, and I can tell you exactly what.</p>
 
   </section>
 
@@ -1192,6 +1054,59 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
 
 </div>
 
+<div id="view-bio">
+<article class="ab">
+
+  <header class="ab-hero">
+    <p class="ab-kicker">Who kept these</p>
+    <h1>The one behind<br>the glass</h1>
+    <p class="ab-sub">An engineer in Kathmandu with a habit of taking small machines apart to find out why they matter.</p>
+  </header>
+
+  <section class="ab-body">
+
+    <p class="lede">My name is Anuj Chaulagain, and none of this began as a plan.</p>
+
+    <p>I am an engineer by profession, which is either the reason I ended up caring this much about small mechanisms, or the explanation I reach for afterward. Either way, the instinct is the same at work and on my wrist: open the thing up, find out how it actually functions, and only then decide whether it deserves the attention it is getting.</p>
+
+    <p>The collection on this site started in 2017 with no intention of becoming one. Eight watches and nine years later, somewhere in the middle of writing all of this down, is roughly when a habit turned into a project.</p>
+
+    <h2>Why a compendium, not a collection page</h2>
+
+    <p>A collection is a list. A compendium keeps working after the list is finished &mdash; it asks where each entry came from, what it is actually made of, and what still is not known. That last part matters most to me. The Secundus on this site is left deliberately unresolved: I would rather publish an honest question mark than a comfortable guess.</p>
+
+    <p class="final">If you know something about a 1930s or 1940s West End Secundus that I do not, or you simply keep time in a way you think I would find interesting, I would like to hear about it.</p>
+
+  </section>
+
+  <footer class="ab-foot">
+    <p class="copyright">&copy; Anuj Chaulagain</p>
+  </footer>
+
+</article>
+</div>
+<div id="view-contact">
+<article class="ab">
+
+  <header class="ab-hero">
+    <p class="ab-kicker">Get in touch</p>
+    <h1>Say hello</h1>
+    <p class="ab-sub">Corrections, provenance leads, or a watch you think I should know about — all welcome.</p>
+  </header>
+
+  <section class="ab-body">
+    <p class="lede">This site is a working document, not a finished one, and it improves whenever someone who knows more than I do gets in touch.</p>
+    <p>If you have something to add — about the Secundus, about any of the eight, or about keeping time in general — the button below opens a message addressed to me directly.</p>
+    <button type="button" class="mail-btn" id="mailBtn">Send a message</button>
+    <p class="mail-note">Opens your own email application.</p>
+  </section>
+
+  <footer class="ab-foot">
+    <p class="copyright">&copy; Anuj Chaulagain</p>
+  </footer>
+
+</article>
+</div>
 <div id="view-story">
 <article class="sx">
 
@@ -1435,19 +1350,48 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
 </div>
 
 <script>
-/* view switching */
+/* view switching + hash routing (static-hosting friendly: no build step, no server) */
 (function(){
-  var btns=document.querySelectorAll('.nav button');
-  function show(v){
-    document.body.classList.toggle('is-story', v==='story');
-    document.body.classList.toggle('is-about', v==='about');
-    btns.forEach(function(b){b.setAttribute('aria-current', String(b.dataset.view===v));});
+  var VIEWS=['home','collection','about','story','bio','contact'];
+  var TITLES={
+    home:'The Horology Compendium',
+    collection:'The Collection \u2014 The Horology Compendium',
+    about:'On Taste \u2014 The Horology Compendium',
+    story:'The Secundus \u2014 The Horology Compendium',
+    bio:'The Collector \u2014 The Horology Compendium',
+    contact:'Contact \u2014 The Horology Compendium'
+  };
+  var navBtns=document.querySelectorAll('.nav button');
+  function show(v,pushState){
+    if(VIEWS.indexOf(v)===-1) v='home';
+    VIEWS.forEach(function(name){document.body.classList.toggle('is-'+name, v===name);});
+    navBtns.forEach(function(b){b.setAttribute('aria-current', String(b.dataset.view===v));});
+    document.title=TITLES[v];
     window.scrollTo({top:0,behavior:'auto'});
+    if(pushState!==false){
+      var url=v==='home' ? location.pathname+location.search : '#'+v;
+      history.pushState({view:v}, '', url);
+    }
   }
-  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.view);});});
+  document.querySelectorAll('.nav button,.home-card').forEach(function(b){
+    b.addEventListener('click',function(){show(b.dataset.view);});
+  });
   document.querySelectorAll('.to-story').forEach(function(a){
     a.addEventListener('click',function(e){e.preventDefault();show('story');});
   });
+  window.addEventListener('popstate',function(){
+    show(location.hash.replace('#',''), false);
+  });
+  show(location.hash.replace('#','')||'home', false);
+
+  var mailBtn=document.getElementById('mailBtn');
+  if(mailBtn){
+    mailBtn.addEventListener('click',function(){
+      var user=['anujchaulagain','horology'].join('.'), host=['gmail','com'].join('.');
+      var addr=user+'@'+host;
+      window.location.href='mailto:'+addr+'?subject='+encodeURIComponent('The Horology Compendium');
+    });
+  }
 })();
 
 
@@ -1473,16 +1417,17 @@ body.is-story .nav button[aria-current="true"]{color:var(--w-blue);border-bottom
     st.appendChild(k);
   }
   var h=document.getElementById('tk-hour'), m=document.getElementById('tk-minute'), sec=document.getElementById('tk-sec');
-  var still=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function paint(){
     var d=new Date(), S=d.getSeconds(), M=d.getMinutes(), H=d.getHours()%12;
     h.setAttribute('transform','rotate('+((H+M/60)*30)+' 170 170)');
     m.setAttribute('transform','rotate('+((M+S/60)*6)+' 170 170)');
-    var frac = still ? S : S + d.getMilliseconds()/1000;
+    var frac = S + d.getMilliseconds()/1000;
     sec.setAttribute('transform','rotate('+(Math.floor(frac*8)/8*6)+' 170 228)');
   }
+  /* the small seconds hand is the whole point of this dial, so it keeps ticking
+     even under prefers-reduced-motion — the decorative sweep-in elsewhere still honours it */
   paint();
-  if(!still) (function loop(){ paint(); requestAnimationFrame(loop); })();
+  (function loop(){ paint(); requestAnimationFrame(loop); })();
 })();
 
 /* advertisement lightbox */
